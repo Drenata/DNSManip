@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>F:\Programming\DNSmanip\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\Programming\DNSmanip\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\DnsManip\DNSManip\Include;F:\Programming\DNSmanip\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\DnsManip\DNSManip\lib;F:\Programming\DNSmanip\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

